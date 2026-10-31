@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Colour themes (values are "R G B") ---------- */
+:root {
+  --color-bg: 248 250 252;
+  --color-surface: 255 255 255;
+  --color-ink: 15 23 42;
+  --color-muted: 51 65 85;
+  --color-primary: 29 78 216;
+  --color-primary-fg: 255 255 255;
+  --color-line: 203 213 225;
+  --color-focus: 194 65 12;
+  --color-success: 21 128 61;
+  --color-danger: 185 28 28;
+  --color-warning: 146 64 14;
+}
+
+/* High contrast: pure black and white with vivid gold/cyan actions */
+:root[data-contrast='high'] {
+  --color-bg: 0 0 0;
+  --color-surface: 0 0 0;
+  --color-ink: 255 255 255;
+  --color-muted: 255 255 255;
+  --color-primary: 255 255 0;
+  --color-primary-fg: 0 0 0;
+  --color-line: 255 255 255;
+  --color-focus: 0 255 255;
+  --color-success: 74 222 128;
+  --color-danger: 255 128 128;
+  --color-warning: 255 200 0;
+}
+
+/* ---------- Text & Page Scaling (100% to 175%) ---------- */
+html[data-text-scale='125'] { font-size: 125%; }
+html[data-text-scale='150'] { font-size: 150%; }
+html[data-text-scale='175'] { font-size: 175%; }
+
+/* Keep scrolling smooth and prevent horizontal layout break */
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ---------- Dyslexia-Friendly Mode ---------- */
+html[data-dyslexia='true'] body,
+html[data-dyslexia='true'] input,
+html[data-dyslexia='true'] textarea,
+html[data-dyslexia='true'] button,
+html[data-dyslexia='true'] select {
+  font-family: 'Atkinson Hyperlegible', 'OpenDyslexic', 'Comic Sans MS', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.12em !important;
+  text-align: left !important;
+}
+
+html[data-dyslexia='true'] p,
+html[data-dyslexia='true'] li {
+  max-width: 65ch;
+}
+
+/* ---------- Click-to-Listen & Speech Highlight ---------- */
+body.click-to-listen-active {
+  cursor: help !important;
+}
+
+body.click-to-listen-active p:hover,
+body.click-to-listen-active h1:hover,
+body.click-to-listen-active h2:hover,
+body.click-to-listen-active h3:hover,
+body.click-to-listen-active h4:hover,
+body.click-to-listen-active li:hover,
+body.click-to-listen-active button:hover {
+  outline: 2px dashed rgb(var(--color-primary)) !important;
+  outline-offset: 2px;
+}
+
+.speech-highlight {
+  background-color: rgba(254, 240, 138, 0.5) !important;
+  border-radius: 4px;
+  outline: 3px solid rgb(var(--color-focus)) !important;
+  outline-offset: 2px;
+  transition: all 0.2s ease-in-out;
+}
+
+:root[data-contrast='high'] .speech-highlight {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  outline: 3px solid #00ffff !important;
+}
+
+/* ---------- Base Styles (Pure CSS with CSS variables, no @apply dependencies) ---------- */
+body {
+  background-color: rgb(var(--color-bg));
+  color: rgb(var(--color-ink));
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid rgb(var(--color-focus));
+  outline-offset: 3px;
+}
+
+html[data-contrast='high'] a {
+  text-decoration: underline;
+}
+
+/* ---------- Reduced motion ---------- */
+html[data-motion='reduce'] *,
+html[data-motion='reduce'] *::before,
+html[data-motion='reduce'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ---------- Component Utilities ---------- */
+.btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  border-width: 2px;
+  border-style: solid;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary {
+  border-color: rgb(var(--color-primary));
+  background-color: rgb(var(--color-primary));
+  color: rgb(var(--color-primary-fg));
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  border-color: rgb(var(--color-line));
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-ink));
+}
+
+.btn-secondary:hover {
+  background-color: rgba(var(--color-ink), 0.05);
+}
+
+.btn-secondary[aria-pressed='true'] {
+  border-color: rgb(var(--color-primary));
+  background-color: rgb(var(--color-primary));
+  color: rgb(var(--color-primary-fg));
+}
+
+.btn[aria-disabled='true'],
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.card {
+  border-radius: 0.75rem;
+  border: 2px solid rgb(var(--color-line));
+  background-color: rgb(var(--color-surface));
+  padding: 1.25rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 50;
+  transform: translateY(-100%);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background-color: rgb(var(--color-primary));
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: rgb(var(--color-primary-fg));
+  transition: transform 0.15s;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+html[data-contrast='high'] .card {
+  border-width: 3px;
+}

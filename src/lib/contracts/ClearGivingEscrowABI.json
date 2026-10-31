@@ -1,0 +1,20 @@
+[
+  "function registerAuditor(address _wallet, string _pseudonym, string _specialty) external",
+  "function createCampaign(address payable _ngoWallet, string _title, uint256 _goalAmount, uint256 _deadline) external returns (uint256)",
+  "function addMilestone(uint256 _campaignId, string _title, uint256 _targetAmount) external",
+  "function approvePlan(uint256 _campaignId) external",
+  "function donate(uint256 _campaignId) external payable",
+  "function submitProof(uint256 _campaignId, uint256 _milestoneId, string _cid) external",
+  "function castVote(uint256 _campaignId, uint256 _milestoneId, bool _approve, bool _isKnownCanary) external",
+  "function releaseRetention(uint256 _campaignId, uint256 _milestoneId) external",
+  "function fileDispute(uint256 _campaignId, uint256 _milestoneId, string _reason) external",
+  "function claimRefund(uint256 _campaignId) external",
+  "function campaigns(uint256) view returns (uint256 id, address payable ngoWallet, string title, uint256 goalAmount, uint256 raisedAmount, uint256 heldAmount, uint256 releasedAmount, uint256 deadline, bool planApproved, uint256 currentMilestoneIndex, uint256 milestoneCount)",
+  "function campaignMilestones(uint256, uint256) view returns (uint256 id, string title, uint256 targetAmount, uint256 panelSize, uint256 requiredApprovals, uint256 immediatePayout, uint256 retainedAmount, uint256 challengeEndsAt, uint8 status, uint256 approveVotes, uint256 rejectVotes, bool isDisputed, string evidenceIpfsCid)",
+  "event DonationReceived(uint256 indexed campaignId, address indexed donor, uint256 amount)",
+  "event StageApproved(uint256 indexed campaignId, uint256 indexed milestoneId, uint256 immediatePayout, uint256 retainedAmount)",
+  "event RetentionReleased(uint256 indexed campaignId, uint256 indexed milestoneId, uint256 amount)",
+  "event DisputeFiled(uint256 indexed campaignId, uint256 indexed milestoneId, address indexed disputer, string reason)",
+  "event RefundClaimed(uint256 indexed campaignId, address indexed donor, uint256 amount)",
+  "event CanaryTrapTriggered(address indexed auditor, uint256 indexed campaignId)"
+]
